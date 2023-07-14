@@ -3,35 +3,35 @@ import 'package:json_annotation/json_annotation.dart';
 part 'price_cripto.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class PriceCripto {
+class PriceCriptoInfo {
   String ticker;
   int queryCount;
   int resultsCount;
   bool adjusted;
-  List<Result> results;
+  List<PriceCripto> prices;
   String status;
   String requestId;
   int count;
 
-  PriceCripto({
+  PriceCriptoInfo({
     required this.ticker,
     required this.queryCount,
     required this.resultsCount,
     required this.adjusted,
-    required this.results,
+    required this.prices,
     required this.status,
     required this.requestId,
     required this.count,
   });
 
-  factory PriceCripto.fromJson(Map<String, dynamic> json) =>
+  factory PriceCriptoInfo.fromJson(Map<String, dynamic> json) =>
       _$PriceCriptoFromJson(json);
 
   Map<String, dynamic> toJson() => _$PriceCriptoToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class Result {
+class PriceCripto {
   @JsonKey(name: 'v')
   double volumeTrade;
 
@@ -45,7 +45,7 @@ class Result {
   double closePrice;
 
   @JsonKey(name: 'h')
-  int highestPrice;
+  double highestPrice;
 
   @JsonKey(name: 'l')
   double lowestPrice;
@@ -56,7 +56,7 @@ class Result {
   @JsonKey(name: 'n')
   int numberTransactions;
 
-  Result({
+  PriceCripto({
     required this.volumeTrade,
     required this.volumeWeightAvrPrice,
     required this.openPrice,
@@ -67,7 +67,8 @@ class Result {
     required this.numberTransactions,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
+  factory PriceCripto.fromJson(Map<String, dynamic> json) =>
+      _$ResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResultToJson(this);
 }
