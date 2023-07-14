@@ -7,19 +7,26 @@ class Repository {
   final _tickers = <Ticker>[];
   final _tickerWithPrices = <TickerWithPrices>[];
   List<TickerWithPrices> get gettickerWithPrices => _tickerWithPrices;
-  Repository() {
-    _asyncInit();
-  }
+  // Repository() {
+  //   print('repo');
+  //   _asyncInit();
+  // }
 
-  Future<void> _asyncInit() async {
-    final tickers = await _apiClient.getTickerList();
-    _tickers.addAll(tickers);
+  Future<void> asyncInit() async {
+    if (_tickers.isEmpty) {
+      final tickers = await _apiClient.getTickerList();
+      _tickers.addAll(tickers);
+    }
   }
 
   Future<void> addTickerWithPrices() async {
-    for (var ticker in _tickers) {
-      final tickerPrices = await _apiClient.getPrices(ticker);
-      _tickerWithPrices.add(tickerPrices);
+    try {
+      for (var ticker in _tickers) {
+        final tickerPrices = await _apiClient.getPrices(ticker);
+        _tickerWithPrices.add(tickerPrices);
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }

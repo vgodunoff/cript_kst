@@ -55,7 +55,7 @@ class ApiClient {
       return listTickers;
     }
 
-    final result = getData(
+    final result = await getData(
       '/v3/reference/tickers',
       parser,
       <String, dynamic>{
@@ -82,13 +82,14 @@ class ApiClient {
       return prices;
     }
 
-    final result = getData(
-      '/v2/aggs/ticker/$tickerName/range/1/day/$prevDay/$yesterday',
+    final result = await getData(
+      // '/v2/aggs/ticker/$tickerName/range/1/day/$prevDay/$yesterday',
+      '/v2/aggs/ticker/$tickerName/range/1/day/2023-01-09/2023-01-10',
       parser,
       <String, dynamic>{
         'adjusted': true.toString(),
         'sort': 'desc',
-        'limit': 100.toString(),
+        'limit': 20.toString(),
         'apiKey': Configuration.apiKey
       },
     );
